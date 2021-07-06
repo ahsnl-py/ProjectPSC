@@ -1,6 +1,6 @@
 
 from django.shortcuts import get_object_or_404, render
-from .models import Author, Post, Category
+from .models import Author, Comment, Post, Category
 from .utils import update_views
 
 
@@ -13,7 +13,6 @@ def home(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    print(post.comments)
     context = {
         "post": post
     }
