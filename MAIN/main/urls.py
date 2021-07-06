@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import home, post_detail, post_list, department_subjects, test_post_list
+from .views import home, post_detail, department_subjects, test_post_list
+
+app_name = 'forum'
+
 urlpatterns = [
     #path("", home, name="home"),
     path("", department_subjects, name="home"),

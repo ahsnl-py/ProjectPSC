@@ -1,0 +1,72 @@
+{% extends 'root.html' %}
+{% load hitcount_tags %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+<div class="container">
+<div class="main-body p-0">
+    <div class="inner-wrapper">
+        <!-- Inner sidebar -->
+        {% include 'components/sidebar.html' %}
+        <!-- /Inner sidebar -->
+
+        <!-- Inner main -->
+        <div class="inner-main">
+            <!-- Inner main header -->
+            <div class="inner-main-header">
+                <a class="nav-link nav-icon rounded-circle nav-link-faded mr-3 d-md-none" href="#" data-toggle="inner-sidebar"><i class="material-icons">arrow_forward_ios</i></a>
+                <select class="custom-select custom-select-sm w-auto mr-1">
+                    <option selected="">Latest</option>
+                    <option value="1">Popular</option>
+                    <option value="3">Solved</option>
+                    <option value="3">Unsolved</option>
+                    <option value="3">No Replies Yet</option>
+                </select>
+                <span class="input-icon input-icon-sm ml-auto w-auto">
+                    <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search forum" />
+                </span>
+            </div>
+            <!-- /Inner main header -->
+
+            <!-- Inner main body -->
+
+            <!-- Forum Detail -->
+            <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                <a href="{{post.categories.all.0.get_url}}" class="btn btn-light btn-sm mb-3 has-icon" data-toggle="collapse" data-target=".forum-content"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+               
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="media forum-item">
+                            <a href="javascript:void(0)" class="card-link">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle" width="50" alt="User" />
+                                <div class="text-muted small text-center align-self-center py-3">
+                                    <span class="d-none d-sm-inline-block"><i class="fa fa-pencil-square-o"></i> {% get_hit_count for post %}</span>
+                                    <span><i class="fa fa-rocket ml-2"></i> {{post.user.points}}</span>
+                                </div>
+                            </a>
+                            <div class="media-body ml-3">
+                                <a href="javascript:void(0)" class="text-secondary">{{post.user.fullname|title}}</a>
+                                <small class="text-muted ml-2">1 hour ago</small>
+                                <h5 class="mt-1">{{post.title}}</h5>
+                                <div class="mt-3 font-size-sm">
+                                    <p>{{post.content|safe}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pagination -->
+            </div>
+            <!-- /Forum Detail -->
+
+            <!-- /Inner main body -->
+        </div>
+        <!-- /Inner main -->
+    </div>
+
+    <!-- New Thread Modal -->
+   
+</div>
+</div>
+{% endblock content %}	

@@ -49,7 +49,7 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
 
     def get_url(self):
-        return reverse("posts", kwargs={
+        return reverse("forum:posts", kwargs={
             "slug":self.slug
         })
 
@@ -107,7 +107,7 @@ class Post(models.Model):
         return self.title
 
     def get_url(self):
-        return reverse("detail", kwargs={
+        return reverse("forum:detail", kwargs={
             "slug":self.slug
         })
 

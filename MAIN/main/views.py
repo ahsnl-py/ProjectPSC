@@ -36,15 +36,4 @@ def post_detail(request, slug):
         "post": post
     }
     update_views(request, post)
-    return render(request, "detail.html", context)
-
-def post_list(request, slug):
-    category = get_object_or_404(Category, slug=slug)
-    posts = Post.objects.filter(approved=True, categories=category)
-
-    context = {
-        "posts": posts,
-        "forum": category,
-    }
-
-    return render(request, "posts.html", context)
+    return render(request, "screens/post_detail.html", context)
