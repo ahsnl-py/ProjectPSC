@@ -59,10 +59,14 @@ h1{
     margin-block: 0;
 }
 
-.center{
+.middle {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.center{
+    vertical-align: middle;
 }
 
 .subforum-icon i{
