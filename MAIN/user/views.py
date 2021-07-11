@@ -52,7 +52,7 @@ def update_profile(request):
             update_profile.user = user 
             update_profile.save()
             return redirect("forum:home")
-
+        
     context.update({
         "form": form,
         "user": user_info

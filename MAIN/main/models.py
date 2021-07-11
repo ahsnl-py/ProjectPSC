@@ -118,4 +118,10 @@ class Post(models.Model):
     @property
     def last_reply(self):
         return self.comments.latest("date")
+
+class UploadFiles(models.Model):
+    file_upload = models.FileField(null=True, blank=True, upload_to='post_media',)
+    # feed_id linked to post.id 
+    feed = models.ForeignKey(Post, on_delete=models.CASCADE)
+
     
