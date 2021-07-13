@@ -32,16 +32,16 @@ def post_list_by_categories(request, slug):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
+    
+    # for c in post.comments.all():
+    #     if c.count != 0:
+    #         replies = [r for r in c.replies.all()]
+
     context = {
         "post": post
     }
     update_views(request, post)
     return render(request, "screens/post_detail.html", context)
-
-class PostCreateView(CreateView):
-    model = Post 
-    fields = ('title', 'categories', 'content')
-    template_name = 'screens/post_create.html'
 
 @login_required
 def create_post(request):
