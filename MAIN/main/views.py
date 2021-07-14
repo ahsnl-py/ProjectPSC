@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Author, Comment, Post, Category, UploadFiles
+from .models import Author, Comment, Post, Category, UploadFiles, Reply
 from .utils import update_views
 from .forms import NewPost, NewPostUploads
 
@@ -32,13 +32,28 @@ def post_list_by_categories(request, slug):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    
+    user = Author.objects.get(user=request.user)
+
     # for c in post.comments.all():
     #     if c.count != 0:
     #         replies = [r for r in c.replies.all()]
 
+    if "comment-form" in request.POST:
+        comment = request.POST.get("comment")
+        new_comment, created = Comment.objects.get_or_create(user=user, content=comment)
+        post.comments.add(new_comment.id)
+
+    if "reply-form" in request.POST:
+        reply = request.POST.get("reply")
+        comment_id =  request.POST.get("comment-id")
+        comment_obj = Comment.objects.get(id=comment_id)
+        new_reply, created = Reply.objects.get_or_create(user=user, content=reply)
+        comment_obj.replies.add(new_reply.id)
+
+    
     context = {
-        "post": post
+        "post": post, 
+        "totl_comment": post.num_comments 
     }
     update_views(request, post)
     return render(request, "screens/post_detail.html", context)

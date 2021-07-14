@@ -27,15 +27,15 @@
       </ul>
 
         <!--User option nav's-->
-    <ul class="navbar-nav ml-auto">
-      {% if user.is_authenticated %}
-        <li><a class="nav-item nav-link" href="{% url 'user:profile' %}">Profile</a></li>
-        <li><a class="nav-item nav-link" href="{% url 'user:logout' %}">Logout</a></li>
-      {% else %}
-        <li><a class="nav-item nav-link" href="{% url 'user:login' %}">Login</a></li>
-        <li><a class="nav-item nav-link" href="{% url 'user:register' %}">Register</a></li>
-      {% endif %}
-    </ul>
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li><a class="nav-item nav-link" href="{% url 'user:profile' %}">Profile</a></li>
+          <li><a class="nav-item nav-link" href="{% url 'user:logout' %}">Logout</a></li>
+        {% else %}
+          <li><a class="nav-item nav-link" href="{% url 'user:login' %}">Login</a></li>
+          <li><a class="nav-item nav-link" href="{% url 'user:register' %}">Register</a></li>
+        {% endif %}
+      </ul>
     </div>
   </div>
 </nav>
