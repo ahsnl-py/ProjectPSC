@@ -4,7 +4,7 @@ from django.views.generic import CreateView
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Author, Comment, Post, Category, UploadFiles, Reply
 from .utils import update_views
-from .forms import NewPost, NewPostUploads
+from .forms import NewPost, NewPostUploads, NewSubject
 
 
 
@@ -84,3 +84,21 @@ def create_post(request):
     })
     
     return render(request, 'screens/post_create.html', context)
+
+@login_required
+def create_subject(request):
+    context = {}
+    new_subject = NewSubject(request.POST or None)
+    if request.method == "POST":
+        if new_subject.is_valid():
+            new_category = new_subject.save(commit=False)
+            new_category.save()
+            return redirect('forum:home')
+    
+    context.update ({
+        'new_subject': new_subject
+    })
+
+    return render(request, 'screens/subject_create.html', context)
+    
+    

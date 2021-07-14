@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.widgets import Select
-from .models import Post, UploadFiles
+from .models import Post, UploadFiles, Category
 
 
 class NewPost(forms.ModelForm):
@@ -43,4 +43,15 @@ class NewPostUploads(forms.ModelForm):
                 'name':"file",
                 'type':"file",
                 'multiple': True}),
+        }
+
+class NewSubject(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields =  ('title', 'slug', 'description')
+
+        labels = {
+            'title': 'Title'
+            , 'slug': 'Slug'
+            , 'description': 'Description'
         }
