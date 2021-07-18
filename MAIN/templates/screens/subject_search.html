@@ -44,27 +44,17 @@
                     </div>
                 </div>
                 <!-- /Inner sidebar -->
-                
+        
                 <!-- Inner main -->
                 <div class="inner-main">
                     <!-- Inner main header -->
-                    <form action="{% url 'forum:search_topic' %}" role="form" method="GET">
                     <div class="inner-main-header">
-                        <select class="custom-select custom-select-sm w-auto mr-1">
-                            <option value="Everything">Everything</option>
-                            <option value="Titles">Titles</option>
-                            <option value="Descriptions">Descriptions</option>
-                        </select>
-                        <input type="text" name="q" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search forum" />
-                        <div class="invisible">
-                            <button type="submit" name="search"></button>
-                        </div>
-                    </div> 
-                    </form> 
-                    <!-- /Inner main header -->     
+                        <span>Search: {{ query }} --> {{ objects|length }} Result(s) found </span>
+                    </div>   
+
                     <!-- Forum home -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        {% for forum in forums %}
+                        {% for forum in objects %}
                         <div class="card mb-2">
                             <div class="card-body p-2 p-sm-3">
                                 <div class="media forum-item">
@@ -87,28 +77,11 @@
                         {% endfor %}
                     </div>
                     <!-- /Forum home -->
+                    
                 </div>
                 <!-- /Inner main -->
             </div>
         </div>
     </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-    <!-- Forum Info -->
-    <!-- <div class="forum-info">
-        <div class="chart">
-            MyForum - Stats &nbsp;<i class="fa fa-bar-chart"></i>
-        </div>
-        <span><u>5,369</u> Posts in <u>48</u> Topics by <u>8,124</u> Members.</span><br>
-        <span>Latest post: <b><a href="">Random post</a></b> on Dec 15 2021 By <a href="">RandomUser</a></span>.<br>
-        <span>Check <a href="">the latest posts</a> .</span><br>
-    </div>   -->
-
 

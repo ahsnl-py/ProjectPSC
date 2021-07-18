@@ -32,10 +32,27 @@ class Author(models.Model):
             self.slug = slugify(self.fullname)
         super(Author, self).save(*args, **kwargs)
 
+class CategoryDept(models.Model):
+    title = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=400, unique=True, blank=True)
+    description = models.TextField(default="description")
+    # approved = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(CategoryDept, self).save(*args, **kwargs)
+
+
 class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=400, unique=True, blank=True)
     description = models.TextField(default="description")
+    deptartment = models.ForeignKey(CategoryDept, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "categories"
@@ -110,6 +127,10 @@ class Post(models.Model):
         return reverse("forum:detail", kwargs={
             "slug":self.slug
         })
+
+    def get_absolute_url(self):
+        return reverse('forum:list', kwargs={"slug" : self.slug})
+
 
     @property
     def num_comments(self):

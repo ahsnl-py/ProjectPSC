@@ -48,10 +48,10 @@ class NewPostUploads(forms.ModelForm):
 class NewSubject(forms.ModelForm):
     class Meta:
         model = Category
-        fields =  ('title', 'slug', 'description')
+        fields =  ('title', 'description', 'deptartment')
 
         labels = {
             'title': 'Title'
-            , 'slug': 'Slug'
             , 'description': 'Description'
+            , 'deptartment': 'Department'
         }

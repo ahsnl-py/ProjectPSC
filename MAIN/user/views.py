@@ -1,3 +1,4 @@
+from django.http.response import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -42,21 +43,26 @@ def profile(request):
 
 @login_required
 def update_profile(request):
-    context = {}
-    user = request.user 
-    user_info = Author.objects.get(user=user)
-    form = UpdateForm(request.POST, request.FILES, use_required_attribute=False)
-    if request.method == "POST":
-        if form.is_valid():
-            update_profile = form.save(commit=False)
-            update_profile.user = user 
-            update_profile.save()
-            return redirect("forum:home")
-        
-    context.update({
-        "form": form,
-        "user": user_info
-    })
+    
+    try:
+        context = {}
+        user = request.user 
+        user_info = Author.objects.get(user=user)
+        form = UpdateForm(request.POST, request.FILES, use_required_attribute=False)
+        if request.method == "POST":
+            if form.is_valid():
+                update_profile = form.save(commit=False)
+                update_profile.user = user 
+                update_profile.save()
+                return redirect("forum:home")
+    except UnboundLocalError:
+        raise "Create an User info first" 
+    
+    finally:
+        context.update({
+            "form": form,
+            "user": user_info
+        })
     return render(request, "users/profile_update.html", context)
 
 

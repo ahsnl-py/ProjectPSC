@@ -6,7 +6,12 @@ from .models import Author, Comment, Post, Category, UploadFiles, Reply
 from .utils import update_views
 from .forms import NewPost, NewPostUploads, NewSubject
 
-
+def test_subject_list(request):
+    subjects = Category.objects.all()
+    context = {
+        "subjects":subjects,
+    }
+    return render(request, "screens/test_subjects_list.html", context)
 
 def department_subjects(request):
     forums = Category.objects.all()
@@ -17,7 +22,6 @@ def department_subjects(request):
 
 def all_forums(request):
     posts = Post.objects.all()
-
     return redirect(request, "components/navbar.html", {'posts':posts})
 
 def post_list_by_categories(request, slug):
@@ -50,7 +54,6 @@ def post_detail(request, slug):
         new_reply, created = Reply.objects.get_or_create(user=user, content=reply)
         comment_obj.replies.add(new_reply.id)
 
-    
     context = {
         "post": post, 
         "totl_comment": post.num_comments 
@@ -76,8 +79,7 @@ def create_post(request):
                 file_instance = UploadFiles(file_upload=f, feed=new_post)
                 file_instance.save()
             return redirect('forum:home')
-
-
+    
     context.update({
         'form':form,
         'upload':file_upload
@@ -100,5 +102,9 @@ def create_subject(request):
     })
 
     return render(request, 'screens/subject_create.html', context)
+
+def search_result(request):
+
+    return render(request, "screens/subject_search.html")
     
     

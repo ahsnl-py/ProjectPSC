@@ -249,3 +249,15 @@ body{
 .mar-top {
     margin-top: 15px;
 }
+
+/* ########################################### */
+/*            footer.html(comment section)     */
+/* ########################################### */
+
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden;
+}
+
