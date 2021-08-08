@@ -9,10 +9,8 @@ def search_function(request):
         search_box = request.GET.get("search-box")
         if search_box == "Descriptions":
             objects = topic.filter(content__icontains=query)
-            print(objects)
         else:
             objects = topic.filter(title__icontains=query)
-            print(objects)
         #ends here
         search_context = {
             "objects":objects,

@@ -4,7 +4,7 @@ from django.views.generic import CreateView
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Author, Comment, Post, Category, UploadFiles, Reply
 from .utils import update_views
-from .forms import NewPost, NewPostUploads, NewSubject
+from .forms import NewPost, NewPostUploads, NewSubject, CategoryDept
 
 def test_subject_list(request):
     subjects = Category.objects.all()
@@ -23,6 +23,14 @@ def department_subjects(request):
 def all_forums(request):
     posts = Post.objects.all()
     return redirect(request, "components/navbar.html", {'posts':posts})
+
+# def subject_list_by_department(reqeust, slug):
+#     all_dept_slug = [d.slug for d in CategoryDept.objects.all()]
+#     if dept_slug in all_dept_slug:
+#         match_subject_dept = Category.objects.raw(  ''' SELECT * 
+#                                                         FROM main_category
+#                                                         WHERE slug = %s
+#                                                     ''', [slug])
 
 def post_list_by_categories(request, slug):
     category = get_object_or_404(Category, slug=slug)
@@ -61,7 +69,7 @@ def post_detail(request, slug):
     update_views(request, post)
     return render(request, "screens/post_detail.html", context)
 
-@login_required
+@login_required(login_url='user:login')
 def create_post(request):
     context = {}
     user = request.user
@@ -87,7 +95,7 @@ def create_post(request):
     
     return render(request, 'screens/post_create.html', context)
 
-@login_required
+@login_required(login_url='user:login')
 def create_subject(request):
     context = {}
     new_subject = NewSubject(request.POST or None)
@@ -106,5 +114,9 @@ def create_subject(request):
 def search_result(request):
 
     return render(request, "screens/subject_search.html")
+
+def dept_list(request):
+
+    return render(request, "components/siderbar.html")
     
     

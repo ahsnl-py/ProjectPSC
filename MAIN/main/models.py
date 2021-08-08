@@ -47,6 +47,11 @@ class CategoryDept(models.Model):
             self.slug = slugify(self.title)
         super(CategoryDept, self).save(*args, **kwargs)
 
+    def get_url(self):
+        return reverse("forum:posts", kwargs={
+            "slug":self.slug
+        })
+
 
 class Category(models.Model):
     title = models.CharField(max_length=50)
