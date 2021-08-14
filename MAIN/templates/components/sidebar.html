@@ -8,8 +8,8 @@
                         <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;">
                             <div class="simplebar-content" style="padding: 16px;">
                                 <nav class="nav nav-pills nav-gap-y-1 flex-column">
-                                    {% for subject in departments %}
-                                    <a href="{{subject.get_url}}">{{ subject.title }}</a>
+                                    {% for dept in departments %}
+                                    <a href="{% url 'forum:dept_filter' dept.id %}">{{ dept.title }}</a>
                                     {% endfor %}
                                 </nav>
                             </div>

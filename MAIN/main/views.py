@@ -2,9 +2,14 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Author, Comment, Post, Category, UploadFiles, Reply
 from .utils import update_views
-from .forms import NewPost, NewPostUploads, NewSubject, CategoryDept
+from .forms import (
+    NewPost, NewPostUploads, NewSubject
+)
+from .models import (
+        Author, Comment, Post, Category, UploadFiles, Reply,
+        CategoryDept
+)
 
 def test_subject_list(request):
     subjects = Category.objects.all()
@@ -24,13 +29,17 @@ def all_forums(request):
     posts = Post.objects.all()
     return redirect(request, "components/navbar.html", {'posts':posts})
 
-# def subject_list_by_department(reqeust, slug):
-#     all_dept_slug = [d.slug for d in CategoryDept.objects.all()]
-#     if dept_slug in all_dept_slug:
-#         match_subject_dept = Category.objects.raw(  ''' SELECT * 
-#                                                         FROM main_category
-#                                                         WHERE slug = %s
-#                                                     ''', [slug])
+def subject_list_by_department(request, dept_id):
+    context = {}
+    dept_all = [t.id for t in CategoryDept.objects.all()] 
+    if dept_id in dept_all:
+        subjects_all = Category.objects.filter(deptartment=dept_id)
+
+    context.update ({
+        'subject_filter_by_dept':subjects_all
+    })
+
+    return render(request, "screens/subject_list.html", context)
 
 def post_list_by_categories(request, slug):
     category = get_object_or_404(Category, slug=slug)

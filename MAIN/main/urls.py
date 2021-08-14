@@ -2,6 +2,7 @@ from django.urls import path
 from .views import ( 
     post_detail
     , department_subjects
+    , subject_list_by_department
     , post_list_by_categories
     , create_post
     , create_subject
@@ -13,6 +14,7 @@ app_name = 'forum'
 
 urlpatterns = [
     path("", department_subjects, name="home"),
+    path("department/<int:dept_id>", subject_list_by_department, name="dept_filter"),
     path("posts/<slug>", post_list_by_categories, name="posts"),
     path("detail/<slug>/", post_detail, name="detail"),
     path("create_post/", create_post, name="create_post"),

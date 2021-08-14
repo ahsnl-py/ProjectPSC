@@ -49,7 +49,7 @@ class CategoryDept(models.Model):
 
     def get_url(self):
         return reverse("forum:posts", kwargs={
-            "slug":self.slug
+            "dept_id":self.id
         })
 
 
@@ -74,6 +74,10 @@ class Category(models.Model):
         return reverse("forum:posts", kwargs={
             "slug":self.slug
         })
+
+    def get_absolute_url(self):
+        return reverse('forum:dept_filter', args=[self.id])
+
 
     @property
     def num_posts(self):
