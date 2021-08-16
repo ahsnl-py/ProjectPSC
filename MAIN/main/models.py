@@ -51,6 +51,9 @@ class CategoryDept(models.Model):
         return reverse("forum:posts", kwargs={
             "dept_id":self.id
         })
+    
+    def get_absolute_url(self):
+        return reverse('forum:dept_filter', args=[self.id])
 
 
 class Category(models.Model):

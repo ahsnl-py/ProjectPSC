@@ -1,8 +1,16 @@
+""" Things To do:
+> Redirect user to login page if not Login when accessing Detail forum (post) page
+> 
+
+"""
+# FUNCTIONS AND METHODS START HERE....
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.shortcuts import get_object_or_404, render, redirect
 from .utils import update_views
+
+# inHouse import Class 
 from .forms import (
     NewPost, NewPostUploads, NewSubject
 )
@@ -11,6 +19,7 @@ from .models import (
         CategoryDept
 )
 
+#Will be deleted
 def test_subject_list(request):
     subjects = Category.objects.all()
     context = {
@@ -18,6 +27,8 @@ def test_subject_list(request):
     }
     return render(request, "screens/test_subjects_list.html", context)
 
+
+# Home page 
 def department_subjects(request):
     forums = Category.objects.all()
     context = {
@@ -25,10 +36,7 @@ def department_subjects(request):
     }
     return render(request, "screens/department_subjects.html", context)
 
-def all_forums(request):
-    posts = Post.objects.all()
-    return redirect(request, "components/navbar.html", {'posts':posts})
-
+# Sidebar functionality
 def subject_list_by_department(request, dept_id):
     context = {}
     dept_all = [t.id for t in CategoryDept.objects.all()] 
@@ -41,7 +49,14 @@ def subject_list_by_department(request, dept_id):
 
     return render(request, "screens/subject_list.html", context)
 
-def post_list_by_categories(request, slug):
+# List all forums (post) in a page
+def post_list_all(request):
+    posts = Post.objects.all()
+    context = {'posts':posts}
+    return render(request, "screens/post_list_all.html", context)
+
+# List all forums (post) by department in a page 
+def post_list_categories(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(approved=True, categories=category)
 
@@ -49,15 +64,12 @@ def post_list_by_categories(request, slug):
         "posts": posts,
         "forum": category,
     }
-    return render(request, "screens/post_list.html", context)
+    return render(request, "screens/post_list_categories.html", context)
 
+# Detail of a forum (post) in a page
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     user = Author.objects.get(user=request.user)
-
-    # for c in post.comments.all():
-    #     if c.count != 0:
-    #         replies = [r for r in c.replies.all()]
 
     if "comment-form" in request.POST:
         comment = request.POST.get("comment")
@@ -77,6 +89,7 @@ def post_detail(request, slug):
     }
     update_views(request, post)
     return render(request, "screens/post_detail.html", context)
+
 
 @login_required(login_url='user:login')
 def create_post(request):
@@ -123,9 +136,11 @@ def create_subject(request):
 def search_result(request):
 
     return render(request, "screens/subject_search.html")
+# !FUNCTIONS AND METHODS END HERE!
 
-def dept_list(request):
-
-    return render(request, "components/siderbar.html")
-    
-    
+""" 
+ ### MAJOR UPDATES NEEDS TO BE LOGGED: ###
+-----------------------------------------------
+user    descriptions                    ticket
+-----------------------------------------------
+"""
