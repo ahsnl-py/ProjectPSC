@@ -1,3 +1,15 @@
+<!-- Inner sidebar -->
+<div class="inner-sidebar">
+    <!-- Inner sidebar header -->
+    {% if posts %}
+        {% include 'components/sidebar_inner_new_post.html' %}
+    {% elif post %}
+        {% include 'components/sidebar_inner_new_post.html' %}
+    {% else %}
+        {% include 'components/sidebar_inner_new_subject.html' %}    
+    {% endif %}
+    <!-- /Inner sidebar header -->
+    
     <!-- Inner sidebar body -->
     <div class="inner-sidebar-body p-0">
         <div class="p-3 h-100" data-simplebar="init">
@@ -9,7 +21,7 @@
                             <div class="simplebar-content" style="padding: 16px;">
                                 <nav class="nav nav-pills nav-gap-y-1 flex-column">
                                     {% for dept in departments %}
-                                    <a href="{% url 'forum:dept_filter' dept.id %}">{{ dept.title }}</a>
+                                    <a href="{% url 'forum:dept_filter' dept.id %}" class="nav-link nav-link-faded has-icon" style="font-weight: bolder;">{{ dept.title }}</a>
                                     {% endfor %}
                                 </nav>
                             </div>
@@ -22,3 +34,5 @@
         </div>
     </div>
     <!-- /Inner sidebar body -->
+</div>  
+
