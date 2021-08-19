@@ -1,6 +1,12 @@
 from django.urls import path
-from .views import register, signup, update_profile, profile
 from django.contrib.auth import views as auth_views
+from .views import  (
+    #Register
+     signup
+    , update_profile
+    , profile
+)    
+
 
 
 app_name = 'user'

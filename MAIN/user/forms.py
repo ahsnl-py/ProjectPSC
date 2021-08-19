@@ -4,12 +4,18 @@ from django.contrib.auth.forms import UserCreationForm
 from main.models import Author 
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
-
+        fields = UserCreationForm.Meta.fields + ('username', 'email',)
+ 
+    # widgets = {
+    #         'username': forms.TextInput(attrs={'class': 'form-control'}),
+    #         'email': forms.EmailInput(attrs={'class': 'form-control'}),   
+    #         'password1': forms.PasswordInput(attrs={'class': 'form-control'}),   
+    #         'password2': forms.PasswordInput(attrs={'class': 'form-control'}),            
+    #     }
 
 class UpdateForm(forms.ModelForm):
     class Meta:

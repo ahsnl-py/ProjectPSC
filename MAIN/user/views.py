@@ -1,36 +1,32 @@
 from django.http.response import Http404
+from django.views import generic 
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UpdateForm
+from django.urls import reverse_lazy
 from main.models import Author
 
-
-def register(request):
-    context = {}
-    form = UserRegisterForm()
-    #UserCreationForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            new_user = form.save()
-            login(request, new_user)
-            return redirect("forum:home")
-    context.update({
-        "form": form, 
-        "title": "Register"
-    })
-    return render(request, 'users/register.html', context)
-
+class Register(generic.CreateView): 
+    form_class = UserRegisterForm
+    template_name = 'users/register.html'
+    success_url =  reverse_lazy('user:login')
 
 def signup(request):
     context = {}
-    form = UserCreationForm(request.POST or None)
     if request.method == "POST":
-        if form.is_valid():
-            new_user = form.save()
-            login(request, new_user)
+        form = UserRegisterForm(request.POST)
+        if form.is_valid:
+            #username = form.cleaned_data.get('username')
+            user = form.save(commit=False)
+            #user.is_active = False
+            user.save()
+            login(request, user)
             return redirect("forum:home")
+    else:
+        form = UserRegisterForm()
+
     context.update({
         "form": form, 
         "title": "Signup",
