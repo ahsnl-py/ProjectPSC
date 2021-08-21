@@ -9,7 +9,7 @@ from .models import (
     , Post
     , Comment
     , Reply
-    
+    , UploadFiles
 )
 
 
@@ -19,11 +19,6 @@ admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Reply)
 admin.site.register(CategoryDept)
-admin.site.unregister(User)
-
-@admin.register(User)
-class NewUserAdmin(UserAdmin):
-    add_form_template = 'screens/register.html'
-    add_form = UserRegisterForm
+admin.site.register(UploadFiles)
 
 

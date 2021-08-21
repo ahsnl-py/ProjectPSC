@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
+# from imagekit.models import ImageSpecField 
+# from imagekit.processors import  ResizeToFill, SmartResize
 from django_resized import ResizedImageField
 from tinymce.models import HTMLField
 from hitcount.models import HitCountMixin, HitCount
@@ -156,5 +158,13 @@ class UploadFiles(models.Model):
     file_upload = models.FileField(null=True, blank=True, upload_to='post_media',)
     # feed_id linked to post.id 
     feed = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    # image = ImageSpecField(
+    #     source='file_upload', processort=[500, 500]
+    # )
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+        
+ 
 
     

@@ -19,9 +19,15 @@
                     <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
                         <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;">
                             <div class="simplebar-content" style="padding: 16px;">
+                                <hr>
+                                <p style="font-family:'Gill Sans', sans-serif ;font-size: 1.5rem;text-align: center;">DEPARTMENTS</p>
+                                <hr>
                                 <nav class="nav nav-pills nav-gap-y-1 flex-column">
                                     {% for dept in departments %}
-                                    <a href="{% url 'forum:dept_filter' dept.id %}" class="nav-link nav-link-faded has-icon" style="font-weight: bolder;">{{ dept.title }}</a>
+                                    <a href="{% url 'forum:dept_filter' dept.id %}" class="nav-link nav-link-faded has-icon" 
+                                        style="font-weight: bold;font-family: Georgia, 'Times New Roman', Times, serif;">
+                                        {{ dept.title }}
+                                    </a>
                                     {% endfor %}
                                 </nav>
                             </div>

@@ -11,7 +11,7 @@ class NewPost(forms.ModelForm):
         labels = {
             'title': 'Title'
             , 'content': 'Body'
-            , 'categories': 'categories'
+            , 'categories': 'Categories'
         }
 
         widgets = {
@@ -20,7 +20,7 @@ class NewPost(forms.ModelForm):
                 'type':"text",
                 'class':"form-control",
                 # 'id':"exampleFormControlInput1",
-                'placeholder':"Title",}),
+                'placeholder':"Title",}) ,
             
             'content': forms.Textarea(attrs={
                 'name':"post_text",
@@ -30,7 +30,7 @@ class NewPost(forms.ModelForm):
                 # 'id':"exampleFormControlTextarea1",
                 'placeholder':"Text",}),
 
-            'categories':forms.Select(attrs={'class':'form-control'}),
+            #'categories':forms.Select(attrs={'class':'form-control'}),
         }
 
 class NewPostUploads(forms.ModelForm):

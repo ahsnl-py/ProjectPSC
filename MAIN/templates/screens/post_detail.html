@@ -1,3 +1,7 @@
+<!-- Things To do:
+> Create slider on the detail page  
+-->
+
 {% extends 'root.html' %}
 {% load crispy_forms_tags %}
 {% load hitcount_tags %}
@@ -45,6 +49,9 @@
                                     <h5 class="mt-1">{{post.title}}</h5>
                                     <div class="mt-3 font-size-sm">
                                         <p>{{post.content|safe}}</p>
+                                        {% for u in uploads %}   
+                                            <img src="{{u.file_upload.url}}" class="img-fluid" alt="...">
+                                        {% endfor %}
                                     </div>
                                 </div>
 

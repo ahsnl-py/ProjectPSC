@@ -1,5 +1,6 @@
 """ Things To do:
 > Redirect user to login page if not Login when accessing Detail forum (post) page
+> Create post functionality needs to be fixed 
 > 
 
 """
@@ -71,6 +72,8 @@ def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     user = Author.objects.get(user=request.user)
 
+    feed_upload = UploadFiles.objects.filter(feed=post.id)
+
     if "comment-form" in request.POST:
         comment = request.POST.get("comment")
         new_comment, created = Comment.objects.get_or_create(user=user, content=comment)
@@ -85,6 +88,7 @@ def post_detail(request, slug):
 
     context = {
         "post": post, 
+        "uploads": feed_upload,
         "totl_comment": post.num_comments 
     }
     update_views(request, post)
