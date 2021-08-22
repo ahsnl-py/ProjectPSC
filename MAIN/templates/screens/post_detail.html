@@ -1,5 +1,5 @@
 <!-- Things To do:
-> Create slider on the detail page  
+> Render images and files at the same time!!  
 -->
 
 {% extends 'root.html' %}
@@ -49,11 +49,15 @@
                                     <h5 class="mt-1">{{post.title}}</h5>
                                     <div class="mt-3 font-size-sm">
                                         <p>{{post.content|safe}}</p>
-                                        {% if uploads.count != 0 %}
-                                            {% for u in uploads %}   
+                                        
+                                        {% for u in uploads %}   
+                                            {% if uploads.count != 0 and extension == '.pdf' %}
+                                                <a href="{{ u.file_upload.url}}" download>{{ u.filename }}</a>
+                                            {% else %}
                                                 <img src="{{u.file_upload.url}}" class="img-fluid" alt="...">
-                                            {% endfor %}
-                                        {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        
                                     </div>
                                 </div>
 

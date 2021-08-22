@@ -1,10 +1,10 @@
 """ Things To do:
-> Redirect user to login page if not Login when accessing Detail forum (post) page
-> Create post functionality needs to be fixed 
-> 
+> render image and files in detail page
 
 """
 # FUNCTIONS AND METHODS START HERE....
+from genericpath import exists
+import os 
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
@@ -73,8 +73,15 @@ def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     user = Author.objects.get(user=request.user)
 
+    # get extension name
+    list_extension_type = []
+    extension_type = ['.pdf', '.doc']
     feed_upload = UploadFiles.objects.filter(feed=post.id)
-
+    file_name = [f.file_upload.name for f in feed_upload]
+    for f in file_name:
+        get_extension = os.path.splitext(f)
+        extension = get_extension[1]
+        
     if "comment-form" in request.POST:
         comment = request.POST.get("comment")
         new_comment, created = Comment.objects.get_or_create(user=user, content=comment)
@@ -90,6 +97,7 @@ def post_detail(request, slug):
     context = {
         "post": post, 
         "uploads": feed_upload,
+        "extension": extension,
         "totl_comment": post.num_comments 
     }
     update_views(request, post)

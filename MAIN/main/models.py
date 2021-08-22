@@ -1,3 +1,9 @@
+""" Things To do:
+> Get file extension name so we could filter in Detail page
+
+"""
+
+import os
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
@@ -39,7 +45,6 @@ class CategoryDept(models.Model):
     slug = models.SlugField(max_length=400, unique=True, blank=True)
     description = models.TextField(default="description")
     # approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.title
@@ -159,12 +164,15 @@ class UploadFiles(models.Model):
     # feed_id linked to post.id 
     feed = models.ForeignKey(Post, on_delete=models.CASCADE)
 
-    # image = ImageSpecField(
-    #     source='file_upload', processort=[500, 500]
-    # )
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-        
+    # def extension(self):
+    #     file_name = os.path.basename(self.file_upload.name)
+    #     split_extension = os.path.splitext(file_name)
+    #     get_extension = split_extension[1]
+    #     return get_extension
+
+    def filename(self):
+        return os.path.basename(self.file_upload.name)
+
  
 
     
