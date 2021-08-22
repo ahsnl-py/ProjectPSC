@@ -6,12 +6,13 @@ from .models import Post, UploadFiles, Category
 class NewPost(forms.ModelForm):
     class Meta:
         model = Post
-        fields =  ['title', 'content', 'categories']
+        fields =  ['title', 'content', 'categories', 'tags']
 
         labels = {
             'title': 'Title'
             , 'content': 'Body'
             , 'categories': 'Categories'
+            , 'tags': 'Tags'
         }
 
         widgets = {
@@ -30,6 +31,15 @@ class NewPost(forms.ModelForm):
                 # 'id':"exampleFormControlTextarea1",
                 'placeholder':"Text",}),
 
+            'categories': forms.Select(attrs = { 
+                'name': 'categories',
+                'class': 'form-control',}),
+
+            'tags': forms.TextInput(attrs={
+                'name':"tags",
+                'class': 'form-control',
+                
+            })
             #'categories':forms.Select(attrs={'class':'form-control'}),
         }
 

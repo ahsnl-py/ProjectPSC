@@ -19,7 +19,7 @@
                 <!-- Inner main header -->
                 <div class="inner-main-header">
                     <div class="navigation">
-                        <span><a href="{% url 'forum:home' %}">Subjects</a> / <a href="{{post.categories.all.0.get_url}}">{{post.categories.all.0}}</a> / <a href="{{post.get_url}}">{{post.title}}</a></span>
+                        <span><a href="{% url 'forum:home' %}">Subjects</a> / <a href="{{post.categories.get_url}}">{{post.categories}}</a> / <a href="{{post.get_url}}">{{post.title}}</a></span>
                     </div>
                     <span class="input-icon input-icon-sm ml-auto w-auto">
                         <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search forum" />
@@ -31,7 +31,7 @@
 
                 <!-- Forum Detail -->
                 <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                    <a href="{{post.categories.all.0.get_url}}" class="btn btn-light btn-sm mb-3 has-icon" data-toggle="collapse" data-target=".forum-content"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                    <a href="{{post.categories.get_url}}" class="btn btn-light btn-sm mb-3 has-icon" data-toggle="collapse" data-target=".forum-content"><i class="fa fa-arrow-left mr-2"></i>Back</a>
                 
                     <div class="card mb-2">
                         <div class="card-body">
@@ -49,9 +49,11 @@
                                     <h5 class="mt-1">{{post.title}}</h5>
                                     <div class="mt-3 font-size-sm">
                                         <p>{{post.content|safe}}</p>
-                                        {% for u in uploads %}   
-                                            <img src="{{u.file_upload.url}}" class="img-fluid" alt="...">
-                                        {% endfor %}
+                                        {% if uploads.count != 0 %}
+                                            {% for u in uploads %}   
+                                                <img src="{{u.file_upload.url}}" class="img-fluid" alt="...">
+                                            {% endfor %}
+                                        {% endif %}
                                     </div>
                                 </div>
 
