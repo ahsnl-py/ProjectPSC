@@ -15,6 +15,7 @@ from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from taggit.managers import TaggableManager
 from django.shortcuts import reverse
+from .utils import validate_file_extension
 
 
 User = get_user_model()
@@ -34,7 +35,6 @@ class Author(models.Model):
     def num_posts(self):
         return Post.objects.filter(user=self).count()
     
-
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.fullname)
@@ -160,9 +160,11 @@ class Post(models.Model):
         return self.comments.latest("date")
 
 class UploadFiles(models.Model):
-    file_upload = models.FileField(null=True, blank=True, upload_to='post_media',)
+    file_upload = models.FileField(null=True, blank=True, upload_to='post_media', validators=[validate_file_extension])
+
     # feed_id linked to post.id 
     feed = models.ForeignKey(Post, on_delete=models.CASCADE)
+
 
     # def extension(self):
     #     file_name = os.path.basename(self.file_upload.name)
