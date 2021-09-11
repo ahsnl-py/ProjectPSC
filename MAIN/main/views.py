@@ -71,7 +71,9 @@ def post_list_categories(request, slug):
 @login_required(login_url='user:login')
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
+    print(post)
     user = Author.objects.get(user=request.user)
+    print(user)
 
     # get extension name
     # list_extension_type = []
