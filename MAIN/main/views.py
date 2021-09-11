@@ -74,14 +74,19 @@ def post_detail(request, slug):
     user = Author.objects.get(user=request.user)
 
     # get extension name
-    list_extension_type = []
-    extension_type = ['.pdf', '.doc']
+    # list_extension_type = []
+    list_extension_type = ['.pdf', '.doc', '.docx', '.xlsx', '.xls', '.txt', 'jpg', 'png']
     feed_upload = UploadFiles.objects.filter(feed=post.id)
     file_name = [f.file_upload.name for f in feed_upload]
-    for f in file_name:
-        get_extension = os.path.splitext(f)
-        extension = get_extension[1]
-        
+    file_extensions = [os.path.splitext(f)[1].lower() for f in file_name]
+    extension_type = {'images': [], 'docs': []}
+    
+    for f, ext in zip(feed_upload, file_extensions):
+        if ext in ['.pdf', '.doc', '.docx', '.xlsx', '.xls', '.txt']:
+            extension_type['docs'].append(f)
+        elif ext in ['.jpg', '.png']:
+            extension_type['images'].append(f)
+
     if "comment-form" in request.POST:
         comment = request.POST.get("comment")
         new_comment, created = Comment.objects.get_or_create(user=user, content=comment)
@@ -97,7 +102,7 @@ def post_detail(request, slug):
     context = {
         "post": post, 
         "uploads": feed_upload,
-        "extension": extension,
+        "extension": extension_type,
         "totl_comment": post.num_comments 
     }
     update_views(request, post)

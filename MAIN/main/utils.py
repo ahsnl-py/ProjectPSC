@@ -13,3 +13,11 @@ def update_views(request, object):
         hitcontext["hitcounted"] = hit_count_response.hit_counted
         hitcontext["hit_message"] = hit_count_response.hit_message
         hitcontext["total_hits"] = hits
+
+def validate_file_extension(value):
+    import os
+    from django.core.exceptions import ValidationError
+    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls', '.txt']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension.')
