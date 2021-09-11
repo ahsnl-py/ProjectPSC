@@ -98,6 +98,8 @@ class VerificationView(View):
         user = User.objects.get(pk=p)
         user.is_active = True
         user.save()
+        user_info = Author(user=user)
+        user_info.save()
         return redirect('user:login')
 
 

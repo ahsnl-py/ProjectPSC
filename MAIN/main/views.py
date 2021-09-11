@@ -1,5 +1,5 @@
 """ Things To do:
-> render image and files in detail page
+> forget passwords
 
 """
 # FUNCTIONS AND METHODS START HERE....
@@ -68,7 +68,6 @@ def post_list_categories(request, slug):
     return render(request, "screens/post_list_categories.html", context)
 
 # Detail of a forum (post) in a page
-@login_required(login_url='user:login')
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     print(post)

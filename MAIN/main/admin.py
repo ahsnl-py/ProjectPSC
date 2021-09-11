@@ -14,11 +14,17 @@ from .models import (
 
 
 admin.site.register(Category)
-admin.site.register(Author)
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Reply)
 admin.site.register(CategoryDept)
 admin.site.register(UploadFiles)
 
+# @admin.register(Author)
+# class AuthorAdmin(admin.ModelAdmin):
+#     list_display = ('user')
+
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('user',)
 

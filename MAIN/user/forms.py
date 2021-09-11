@@ -8,7 +8,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = UserCreationForm.Meta.fields + ('username', 'email',)
+        fields = UserCreationForm.Meta.fields + ('username','email',)
  
     # widgets = {
     #         'username': forms.TextInput(attrs={'class': 'form-control'}),
