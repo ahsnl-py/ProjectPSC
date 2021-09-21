@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-2%2+(rx8ytddo)
 DEBUG = str(os.environ.get('DEBUG')) == "1"
 
 ENV_ALLOWED_HOST = os.environ.get('DJANGO_ALLOWED_HOST') or None
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['206.189.55.224']
 if ENV_ALLOWED_HOST is not None:
     ALLOWED_HOSTS = [ ENV_ALLOWED_HOST ]
 
