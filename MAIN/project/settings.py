@@ -101,8 +101,8 @@ else:
         'PASSWORD': 'PSC_DB_login',
         'HOST': 'localhost',
         'PORT': '',
+        }
     }
-}
 
 # POSTGRES_DB = os.environ.get("POSTGRES_DB")
 # POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
